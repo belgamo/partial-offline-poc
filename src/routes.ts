@@ -21,7 +21,14 @@ router.setRoutes([
         path: "/todos",
         component: "todos-page",
         action: async () => {
-          await import("./pages/todos.page");
+          await import("./pages/todos/todos-list.page");
+        },
+      },
+      {
+        path: "/todos/create",
+        component: "create-todo-page",
+        action: async () => {
+          await import("./pages/todos/create-todo.page");
         },
       },
     ],
