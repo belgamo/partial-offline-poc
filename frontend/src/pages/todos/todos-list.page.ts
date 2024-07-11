@@ -2,6 +2,7 @@ import { consume } from "@lit/context";
 import { LitElement, css, html } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { Todo, TodosDAO, TodosDAOContext } from "../../data/types";
+import { classMap } from "lit/directives/class-map.js";
 
 @customElement("todos-page")
 export class TodosPage extends LitElement {
@@ -11,6 +12,21 @@ export class TodosPage extends LitElement {
   static styles = css`
     h1 {
       margin: 0;
+    }
+
+    a {
+      color: blue;
+      text-decoration: none;
+    }
+
+    .ongoing {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .done {
+      text-decoration: line-through;
     }
   `;
 
@@ -38,7 +54,11 @@ export class TodosPage extends LitElement {
           .map(
             (todo) => html`
               <li>
-                <a href="/todos/${todo.id}">${todo.name}</a>
+                <a
+                  class=${classMap({ ongoing: !todo.done, done: todo.done })}
+                  href="/todos/${todo.id}"
+                  >${todo.name}</a
+                >
                 ${todo.done ? "✅" : "⏳"}
               </li>
             `
