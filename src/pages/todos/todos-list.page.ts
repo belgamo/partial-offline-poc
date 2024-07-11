@@ -29,11 +29,6 @@ export class TodosPage extends LitElement {
       <small>Click on the task to edit it</small>
 
       <br />
-      <br />
-
-      <a href="/todos/create">Create</a>
-
-      <br />
 
       <ul>
         ${this._todos.map(

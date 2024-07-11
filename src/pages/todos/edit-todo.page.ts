@@ -8,7 +8,7 @@ import { RouterLocation } from "@vaadin/router";
 TodoForm;
 
 @customElement("edit-todo-page")
-export class CreateTodoPage extends LitElement {
+export class EditTodoPage extends LitElement {
   @consume({ context: TodosDAOContext })
   todosDAO!: TodosDAO;
 

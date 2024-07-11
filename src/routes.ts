@@ -26,13 +26,6 @@ export const makeRouter = (outlet: HTMLElement) => {
           },
         },
         {
-          path: "/todos/create",
-          component: "create-todo-page",
-          action: async () => {
-            await import("./pages/todos/create-todo.page");
-          },
-        },
-        {
           path: "/todos/:id",
           component: "edit-todo-page",
           action: async () => {

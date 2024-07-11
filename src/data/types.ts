@@ -3,6 +3,8 @@ import { createContext } from "@lit/context";
 export type Todo = {
   id: string;
   name: string;
+  duration: string;
+  complexity: string;
   done: boolean;
 };
 

@@ -2,8 +2,14 @@ import { Todo, TodosDAO } from "./types";
 
 export class InMemoryTodos implements TodosDAO {
   private todos: Todo[] = [
-    { id: "1", name: "Do the dishes", done: true },
-    { id: "2", name: "Study math", done: false },
+    {
+      id: "1",
+      name: "Do the dishes",
+      duration: "2 hours",
+      complexity: "medium",
+      done: true,
+    },
+    { id: "2", name: "Study math", duration: "", complexity: "", done: false },
   ];
 
   list() {
