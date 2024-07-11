@@ -14,4 +14,8 @@ export interface TodosDAO {
   save(todo: Todo): Promise<Todo | undefined>;
 }
 
+export interface TodosPersistor {
+  saveBatch(todo: Todo[]): Promise<void>;
+}
+
 export const TodosDAOContext = createContext<TodosDAO>(Symbol("todos-dao"));
