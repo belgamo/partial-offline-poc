@@ -10,7 +10,7 @@ export class LocalTodos implements TodosDAO {
     return await TodosProgressLocalDB.todos.where("id").equals(id).first();
   }
 
-  save(todo: Todo): Promise<Todo | undefined> {
+  save(_todo: Todo): Promise<Todo | undefined> {
     throw new Error("Method not implemented.");
   }
 }
