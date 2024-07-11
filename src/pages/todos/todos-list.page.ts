@@ -37,7 +37,12 @@ export class TodosPage extends LitElement {
 
       <ul>
         ${this._todos.map(
-          (todo) => html` <li>${todo.name} ${todo.done ? "✅" : "⏳"}</li> `
+          (todo) => html`
+            <li>
+              <a href="/todos/${todo.id}">${todo.name}</a>
+              ${todo.done ? "✅" : "⏳"}
+            </li>
+          `
         )}
       </ul>
     `;
