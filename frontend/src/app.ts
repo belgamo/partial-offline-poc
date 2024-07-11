@@ -4,12 +4,12 @@ import { makeRouter } from "./routes";
 import { createRef, ref } from "lit/directives/ref.js";
 import { TodosDAOContext } from "./data/types";
 import { provide } from "@lit/context";
-import { InMemoryTodos } from "./data/inmemory-todos.dao";
+import { RemoteTodosDAO } from "./data/remote-todos.dao";
 
 @customElement("main-app")
 export class TodosPage extends LitElement {
   @provide({ context: TodosDAOContext })
-  todosDAOProvider = new InMemoryTodos();
+  todosDAOProvider = new RemoteTodosDAO();
 
   private outletRef = createRef();
 
