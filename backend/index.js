@@ -48,7 +48,7 @@ const defaultData = {
       id: "6",
       name: "Clean the house",
       duration: "4 hours",
-      complexity: "high",
+      complexity: "easy",
       done: true,
     },
     {
