@@ -31,14 +31,18 @@ export class TodosPage extends LitElement {
       <br />
 
       <ul>
-        ${this._todos.map(
-          (todo) => html`
-            <li>
-              <a href="/todos/${todo.id}">${todo.name}</a>
-              ${todo.done ? "✅" : "⏳"}
-            </li>
-          `
-        )}
+        ${this._todos
+          .sort((x, y) => {
+            return x.done === y.done ? 0 : x.done ? 1 : -1;
+          })
+          .map(
+            (todo) => html`
+              <li>
+                <a href="/todos/${todo.id}">${todo.name}</a>
+                ${todo.done ? "✅" : "⏳"}
+              </li>
+            `
+          )}
       </ul>
     `;
   }

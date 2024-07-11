@@ -10,6 +10,13 @@ export class InMemoryTodos implements TodosDAO {
       done: true,
     },
     { id: "2", name: "Study math", duration: "", complexity: "", done: false },
+    {
+      id: "3",
+      name: "Walk the dogs",
+      duration: "",
+      complexity: "",
+      done: false,
+    },
   ];
 
   list() {
