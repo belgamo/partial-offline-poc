@@ -2,6 +2,7 @@ import { Router } from "@vaadin/router";
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { Todo } from "../data/types";
+import { createRef, ref } from "lit/directives/ref.js";
 
 const COMPLEXITY_OPTIONS = [
   { value: "easy", label: "Easy" },
@@ -25,13 +26,53 @@ export class TodoForm extends LitElement {
     done: false,
   };
 
+  private formElement = createRef<HTMLFormElement>();
+
   get isEditable() {
     return !this.initialData.done;
   }
 
+  private _getFormData() {
+    const data = new FormData(this.formElement.value);
+
+    const todo: Todo = {
+      ...this.initialData,
+      complexity: data.get("complexity") as string,
+      duration: data.get("duration") as string,
+    };
+
+    return todo;
+  }
+
+  private _save(event: Event) {
+    event.preventDefault();
+
+    const saveEvent = new CustomEvent("save-event", {
+      bubbles: true,
+      composed: true,
+      detail: { todo: this._getFormData() },
+    });
+    this.dispatchEvent(saveEvent);
+  }
+
+  private _complete(event: Event) {
+    event.preventDefault();
+
+    const isValid = this.formElement.value?.reportValidity();
+
+    if (!isValid) return;
+
+    const saveEvent = new CustomEvent("save-event", {
+      bubbles: true,
+      composed: true,
+      detail: { todo: { ...this._getFormData(), done: true } },
+    });
+    this.dispatchEvent(saveEvent);
+  }
+
   render() {
     return html`
-      <form>
+      <form ${ref(this.formElement)}>
         <label for="name">Name</label>
         <span>${this.initialData.name}</span>
 
@@ -39,8 +80,12 @@ export class TodoForm extends LitElement {
 
         <label for="complexity">How hard was it?</label>
         ${this.isEditable
-          ? html`<select id="complexity">
-              <option ?selected=${this.initialData.complexity === ""} disabled>
+          ? html`<select name="complexity" id="complexity" required>
+              <option
+                value=""
+                ?selected=${this.initialData.complexity === ""}
+                disabled
+              >
                 Select
               </option>
               ${COMPLEXITY_OPTIONS.map(
@@ -70,7 +115,9 @@ export class TodoForm extends LitElement {
           ? html`<input
               type="text"
               id="duration"
+              name="duration"
               value=${this.initialData.duration}
+              required
             />`
           : html`<span>${this.initialData.duration}</span>`}
 
@@ -102,8 +149,8 @@ export class TodoForm extends LitElement {
               >
                 Cancel
               </button>
-              <button>Save</button>
-              <button>Complete</button>
+              <button @click=${this._save}>Save</button>
+              <button @click=${this._complete}>Complete</button>
             `}
       </form>
     `;

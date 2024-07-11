@@ -28,4 +28,12 @@ export class InMemoryTodos implements TodosDAO {
       resolve(this.todos.find((todo) => todo.id === id))
     );
   }
+
+  save(todo: Todo) {
+    const otherTodos = this.todos.filter((t) => t.id !== todo.id);
+
+    this.todos = [...otherTodos, todo];
+
+    return new Promise<Todo | undefined>((resolve) => resolve(todo));
+  }
 }

@@ -3,7 +3,7 @@ import { customElement, state } from "lit/decorators.js";
 import { TodoForm } from "../../components/todo-form";
 import { consume } from "@lit/context";
 import { TodosDAOContext, TodosDAO, Todo } from "../../data/types";
-import { RouterLocation } from "@vaadin/router";
+import { Router, RouterLocation } from "@vaadin/router";
 
 TodoForm;
 
@@ -19,13 +19,26 @@ export class EditTodoPage extends LitElement {
     this._todo = await this.todosDAO.get(location.params.id as string);
   }
 
+  connectedCallback(): void {
+    super.connectedCallback();
+  }
+
+  private async _onSaveEvent(event: CustomEvent<{ todo: Todo }>) {
+    await this.todosDAO.save(event.detail.todo);
+    Router.go("/todos");
+  }
+
   render() {
     if (!this._todo) return html`Task not found`;
 
     return html`
       <h1>Edit Todo</h1>
 
-      <todo-form .initialData=${this._todo}></todo-form>
+      <todo-form
+        @save-event=${(event: CustomEvent<{ todo: Todo }>) =>
+          this._onSaveEvent(event)}
+        .initialData=${this._todo}
+      ></todo-form>
     `;
   }
 }
