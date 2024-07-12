@@ -6,7 +6,7 @@ import { TodosDAOContext, TodosPersistor } from "./data/types";
 import { provide } from "@lit/context";
 import { RemoteTodosDAO } from "./data/remote-todos.dao";
 import { DexiePersistor } from "./data/dexie-todos.persistor";
-import { LocalTodos } from "./data/local-todos.dao";
+import { LocalTodosDAO } from "./data/local-todos.dao";
 
 @customElement("main-app")
 export class App extends LitElement {
@@ -15,7 +15,7 @@ export class App extends LitElement {
   remoteTodosDAO = new RemoteTodosDAO(this.todosPersistor);
 
   @provide({ context: TodosDAOContext })
-  localTodosDAO = new LocalTodos();
+  localTodosDAO = new LocalTodosDAO();
 
   private outletRef = createRef();
 

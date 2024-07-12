@@ -1,7 +1,7 @@
 import { TodosProgressLocalDB } from "./todos.localdb";
 import { Todo, TodosDAO } from "./types";
 
-export class LocalTodos implements TodosDAO {
+export class LocalTodosDAO implements TodosDAO {
   async list(): Promise<Todo[]> {
     return await TodosProgressLocalDB.todos.toArray();
   }
